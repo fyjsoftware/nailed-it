@@ -1,3 +1,4 @@
+/*--------------------------- Barra / Fondo ---------------------------*/
 * {
     margin: 0;
     padding: 0;
@@ -125,7 +126,6 @@ body {
   text-align: center;
   font-size: 25px;
 }
-
 ::placeholder{
   color: #000;
   font-size: 16.5px;
@@ -151,9 +151,9 @@ input[type=text]{
 .container{
   position: relative;
   width: 75%;
-  min-height: 650px;
+  max-height: 760px;
   margin-top: 20px;
-  margin-bottom: 15%;
+  margin-bottom: 10%;
   padding: 5px;
   color: #fff;
   display: flex;
@@ -167,7 +167,7 @@ input[type=text]{
 .calendar{
   position: relative;
   width: 550px;
-  height: 600px;
+  height: 710px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -197,7 +197,6 @@ input[type=text]{
 }
 .calendar .weekdays{
   width: 100%;
-  height: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -208,7 +207,6 @@ input[type=text]{
 }
 .calendar .weekdays div{
   width: 14.28%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,13 +223,13 @@ input[type=text]{
 }
 .calendar .days .day{
   width: 14.28%;
-  height: 45%;
+  height: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--primary-clr);
-  border: 1px solid #f5f5f5;
+  border: 2px solid #f5f5f5;
 }
 .calendar.day:not(.prev-date,.next-day):hover{
   color: #fff;
@@ -260,8 +258,8 @@ input[type=text]{
 .calendar .days .today{
   font-size: 2rem;
 }*/
-/* ------ Botón del calendario para devolverte a la fecha actual ------
-.calendar .goto-today {
+/* ------ Botón en el calendario para agendar la cita ------*/
+.calendar .agendar-btn {
   width: 100%;
   height: 50px;
   display: flex;
@@ -271,7 +269,7 @@ input[type=text]{
   margin: 50px 0 10px 80%;
   color: var(--primary-clr);
 }
-.calendar .goto-today button {
+.calendar .agendar-btn button {
   padding: 5px 10px;
   border: 1px solid var(--primary-clr);
   border-radius: 5px;
@@ -279,10 +277,10 @@ input[type=text]{
   cursor: pointer;
   color: var(--primary-clr);
 }
-.calendar .goto-today button:hover {
+.calendar .agendar-btn button:hover {
   color: #fff;
   background-color: var(--primary-clr);
-}*/
+}
 /*--------------------------- Info contacto ---------------------------*/
 .back-info{
   padding: 10px 0;
