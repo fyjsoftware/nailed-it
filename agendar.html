@@ -32,8 +32,8 @@
           </header>
 <!----------------------------- My code ----------------------------->
 <!----------------------------- Mensaje / Cards ----------------------------->
-          <div class="mensaje"><br>A CONTINUACIÓN, INGRESA LOS DATOS PARA PODER AGENDAR TU CITA</div>
-            <div class="emp"><br><br>EMPLEADAS</div>
+          <div class="mensaje"><br>A continuación, ingresa los datos para poder agendar tu cita</div>
+            <div class="emp"><br><br>Empleadas</div>
         <div class="all-cards">
           <div class="card">
             <div class="head">
@@ -125,6 +125,7 @@
                 <img src="https://i.pinimg.com/236x/1a/f9/79/1af979fa093d32574f2c923ba0c9390b.jpg">
               </div>
             </div>
+            
             <div class="description">
               <h2>Nombre</h2>
               <h3>Servicios</h3>
@@ -140,11 +141,16 @@
             </div>
           </div>
         </div>
-        <div class="datos"><br><br>INGRESE SU NOMBRE COMPLETO Y NÚMERO TELEFÓNICO:</div>
-        <input type="text" id="name" placeholder="NOMBRE">
-        <input type="text" id="name" placeholder="TELÉFONO">
+        <div class="datos"><br><br><br>Ingrese su nombre completo y número telefónico:</div>
+        <div class="all-textbox">
+          <input type="text" id="ap" placeholder="Apellido paterno">
+          <input type="text" id="am" placeholder="Apellido materno">
+          <input type="text" id="name" placeholder="Nombre">
+          <input type="text" id="tel" placeholder="Teléfono">
+        </div>
 <!----------------------------- Calendario ----------------------------->
-        <div class="agendar"><br><br>¿QUE DÍA Y HORA TE GUSTARÍA AGENDAR?</div>
+        <div class="agendar-msg"><br><br><br>¿Qué día y hora te gustaría agendar?</div>
+
           <div class="container">
             <div class="left">
               <div class="calendar">
@@ -199,15 +205,19 @@
                   <div class="day next-date">2</div>
                   <div class="day next-date">3</div>
                 </div>
+              </div>
+
+              <div class="agendar">
+                <input type="text" id="hour" placeholder="Hora">
                 <div class="agendar-btn">
                   <button class="msg">Agendar cita</button>
                 </div>
               </div>
+
             </div>
-            <div class="right">
-              
-            </div>
+            <div class="right"></div>
           </div>
+          
         <div class="back-info">
           <div class="info">Dirección: Av. Jdn. Sur, Jardines del Valle, 21280 Mexicali, B.C.
                         <br>Teléfono: (686) 222 7513

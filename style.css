@@ -76,6 +76,13 @@ body {
   margin: 15px 20px;
   display: inline-block;
   flex-wrap: wrap;
+  cursor: pointer;
+}
+.card:hover {
+  background-color: #ffccff;
+}
+.card:active {
+  background-color: #ff99ff;
 }
 .card .head{
   height: 125px;
@@ -126,8 +133,13 @@ body {
   text-align: center;
   font-size: 25px;
 }
+.all-textbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 ::placeholder{
-  color: #000;
+  color:fff;
   font-size: 16.5px;
 }
 input[type=text]{
@@ -135,12 +147,13 @@ input[type=text]{
   border: 1px solid#708090;
   background-color: #e6e6fa;
   border-radius: 41px;
-  width: 25%;
-  margin: 20px 20px 50px 15%;
+  width: 22%;
   letter-spacing: 1.5px;
+  margin-top: 20px;
+  margin-right: 15px;
 }
 /*--------------------------- Calendario ---------------------------*/
-.agendar{
+.agendar-msg{
   color: #000;
   text-align: center;
   font-size: 25px;
@@ -151,27 +164,25 @@ input[type=text]{
 .container{
   position: relative;
   width: 75%;
-  max-height: 760px;
+  max-height: 630px;
   margin-top: 20px;
-  margin-bottom: 10%;
-  padding: 5px;
+  margin-bottom: 8%;
   color: #fff;
   display: flex;
   border-radius: 22px;
   background-color: #e6e6fa;
 }
 .left{
-  width: 90%;
-  padding: 20px;
+  width: 55%;
+  padding: 20px 0 20px 20px;
 }
 .calendar{
   position: relative;
   width: 550px;
-  height: 710px;
+  height: 550px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  justify-content: space-between;
   color: #878895;
   border-radius: 20px;
   background-color: #fff;
@@ -204,6 +215,7 @@ input[type=text]{
   font-size: 1.5rem;
   font-weight: 500;
   text-transform: capitalize;
+  margin-top: 15px;
 }
 .calendar .weekdays div{
   width: 14.28%;
@@ -219,7 +231,7 @@ input[type=text]{
   padding: 0 20px;
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-top: 30px;
 }
 .calendar .days .day{
   width: 14.28%;
@@ -259,27 +271,25 @@ input[type=text]{
   font-size: 2rem;
 }*/
 /* ------ Botón en el calendario para agendar la cita ------*/
-.calendar .agendar-btn {
-  width: 100%;
-  height: 50px;
+.agendar{
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 5px;
-  margin: 50px 0 10px 80%;
-  color: var(--primary-clr);
+  align-items: center;
 }
-.calendar .agendar-btn button {
+.agendar-btn button {
   padding: 5px 10px;
   border: 1px solid var(--primary-clr);
   border-radius: 5px;
-  background-color: transparent;
+  background-color: #e6e6fa;
   cursor: pointer;
   color: var(--primary-clr);
+  font-size: 18px;
+  margin-top: 12px;
 }
-.calendar .agendar-btn button:hover {
+.agendar-btn button:hover {
   color: #fff;
-  background-color: var(--primary-clr);
+  background-color: #ff99ff;
+  border: 1px solid #ff99ff;
 }
 /*--------------------------- Info contacto ---------------------------*/
 .back-info{
