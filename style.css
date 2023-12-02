@@ -6,6 +6,20 @@
     text-decoration: none;
     list-style: none;
 }
+::-webkit-scrollbar {
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: pink;
+  border-radius: 25px;
+}
+::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 25px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(214, 38, 106);
+}
 body {
     background: linear-gradient(
     90deg, 
@@ -149,7 +163,7 @@ input[type=text]{
   border-radius: 41px;
   width: 22%;
   letter-spacing: 1.5px;
-  margin-top: 20px;
+  margin-top: 25px;
   margin-right: 15px;
 }
 /*--------------------------- Calendario ---------------------------*/
@@ -164,9 +178,10 @@ input[type=text]{
 .container{
   position: relative;
   width: 75%;
-  max-height: 630px;
+  min-height: 650px;
   margin-top: 20px;
   margin-bottom: 8%;
+  padding: 5px;
   color: #fff;
   display: flex;
   border-radius: 22px;
@@ -217,7 +232,7 @@ input[type=text]{
   text-transform: capitalize;
   margin-top: 15px;
 }
-.calendar .weekdays div{
+.weekdays div{
   width: 14.28%;
   display: flex;
   align-items: center;
@@ -231,17 +246,29 @@ input[type=text]{
   padding: 0 20px;
   font-size: 1rem;
   font-weight: 500;
-  margin-top: 30px;
+  margin-top: 25px;
 }
 .calendar .days .day{
   width: 14.28%;
-  height: 70%;
+  height: 65px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--primary-clr);
   border: 2px solid #f5f5f5;
+}
+.calendar .days .day:nth-child(7n + 1) {
+  border-left: 2px solid #f5f5f5;
+}
+.calendar .days .day:nth-child(7n) {
+  border-right: 2px solid #f5f5f5;
+}
+.calendar .days .day:nth-child(-n + 7) {
+  border-top: 2px solid #f5f5f5;
+}
+.calendar .days .day:nth-child(n + 29) {
+  border-bottom: 2px solid #f5f5f5;
 }
 .calendar.day:not(.prev-date,.next-day):hover{
   color: #fff;
@@ -250,6 +277,165 @@ input[type=text]{
 .calendar .days .prev-date,
 .calendar .days .next-day{
   color: #b3b3b3;
+}
+.calendar .days .active {
+  position: relative;
+  font-size: 2rem;
+  color: #fff;
+  background-color: var(--primary-clr);
+}
+.calendar .days .active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 10px 2px var(--primary-clr);
+}
+.calendar .days .today {
+  font-size: 2rem;
+}
+.calendar .days .event {
+  position: relative;
+}
+.calendar .days .event::after {
+  content: "";
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  width: 75%;
+  height: 6px;
+  border-radius: 30px;
+  transform: translateX(-50%);
+  background-color: var(--primary-clr);
+}
+.calendar .days .day:hover.event::after {
+  background-color: #fff;
+}
+.calendar .days .active.event::after {
+  background-color: #fff;
+  bottom: 20%;
+}
+.calendar .days .active.event {
+  padding-bottom: 10px;
+}
+/* ------------------------ Citas ------------------------*/
+.container .right {
+  position: relative;
+  width: 40%;
+  min-height: 100%;
+  padding: 20px 0;
+}
+.right .today-date {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  padding-left: 70px;
+  margin-top: 5%;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  color: var(--primary-clr);  /*Día*/
+}
+.right .today-date .event-day {
+  font-size: 2rem;
+  font-weight: 500;
+}
+.right .today-date .event-date {  /*día/mes/año*/
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--primary-clr);
+}
+.events {
+  width: 100%;
+  height: 100%;
+  max-height: 85%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding-left: 4px;
+}
+.events .event {
+  position: relative;
+  width: 95%;
+  min-height: 70px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 20px;
+  padding-left: 50px;
+  color: #fff;
+  background: linear-gradient(90deg, #3f4458, transparent);
+  cursor: pointer;
+}
+/* even event */
+.events .event:nth-child(even) {
+  background: transparent;
+}
+.events .event:hover {
+  background: linear-gradient(90deg, var(--primary-clr), transparent);
+}
+.events .event .title {
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.events .event .title .event-title {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-left: 20px;
+}
+.events .event i {
+  color: var(--primary-clr);
+  font-size: 0.5rem;
+}
+.events .event:hover i {
+  color: #fff;
+}
+.events .event .event-time {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #878895;
+  margin-left: 15px;
+  pointer-events: none;
+}
+.events .event:hover .event-time {
+  color: #fff;
+}
+/* add tick in event after */
+.events .event::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  font-size: 3rem;
+  line-height: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.3;
+  color: var(--primary-clr);
+  transform: translateY(-50%);
+}
+.events .event:hover::after {
+  display: flex;
+}
+.events .no-event {  /*No Events*/
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-clr);
 }
 /* ------ Para señalar el día actual ------
 .calendar .days .active{
@@ -273,18 +459,19 @@ input[type=text]{
 /* ------ Botón en el calendario para agendar la cita ------*/
 .agendar{
   display: flex;
+  margin-left: 20px;
   justify-content: space-between;
   align-items: center;
 }
 .agendar-btn button {
-  padding: 5px 10px;
+  padding: 10px;
   border: 1px solid var(--primary-clr);
   border-radius: 5px;
   background-color: #e6e6fa;
   cursor: pointer;
   color: var(--primary-clr);
   font-size: 18px;
-  margin-top: 12px;
+  margin-top: 18px;
 }
 .agendar-btn button:hover {
   color: #fff;

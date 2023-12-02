@@ -38,10 +38,11 @@ const months = [
 ];
 
 const eventsArr = [];
-getEvents();
+let eventsCal;
+//getEvents();
 console.log(eventsArr);
 
-//function to add days in days with class day and prev-date next-date on previous month and next month 
+//function to add days in days with class day and prev-date next-date on previous month and next month
 //days and active on today
 function initCalendar() {
   const firstDay = new Date(year, month, 1);
@@ -174,50 +175,43 @@ function addListner() {
   });
 }
 
-todayBtn.addEventListener("click", () => {
-  today = new Date();
-  month = today.getMonth();
-  year = today.getFullYear();
-  initCalendar();
-});
-
-dateInput.addEventListener("input", (e) => {
-  dateInput.value = dateInput.value.replace(/[^0-9/]/g, "");
-  if (dateInput.value.length === 2) {
-    dateInput.value += "/";
-  }
-  if (dateInput.value.length > 7) {
-    dateInput.value = dateInput.value.slice(0, 7);
-  }
-  if (e.inputType === "deleteContentBackward") {
-    if (dateInput.value.length === 3) {
-      dateInput.value = dateInput.value.slice(0, 2);
-    }
-  }
-});
-
-gotoBtn.addEventListener("click", gotoDate);
-
-function gotoDate() {
-  console.log("here");
-  const dateArr = dateInput.value.split("/");
-  if (dateArr.length === 2) {
-    if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length === 4) {
-      month = dateArr[0] - 1;
-      year = dateArr[1];
-      initCalendar();
-      return;
-    }
-  }
-  alert("Invalid Date");
-}
-
 //function get active day, day name and date, and update eventday eventdate
 function getActiveDay(date) {
   const day = new Date(year, month, date);
-  const dayName = day.toString().split(" ")[0];
+  const dayName = daysIndex(day.getDay());
   eventDay.innerHTML = dayName;
   eventDate.innerHTML = date + " " + months[month] + " " + year;
+}
+
+function daysIndex(day) {
+  let res;
+  switch (day) {
+    case 0:
+      res = "Dom";
+      break;
+    case 1:
+      res = "Lun";
+      break;
+    case 2:
+      res = "Mar";
+      break;
+    case 3:
+      res = "Mie";
+      break;
+    case 4:
+      res = "Jue";
+      break;
+    case 5:
+      res = "Vie";
+      break;
+    case 6:
+      res = "Sab";
+      break;
+    default:
+      res = null;
+      break;
+  }
+  return res;
 }
 
 //function update events when a day is active
@@ -244,22 +238,13 @@ function updateEvents(date) {
   });
   if (events === "") {
     events = `<div class="no-event">
-            <h3>No Events</h3>
+            <h3>Sin citas</h3>
         </div>`;
   }
   eventsContainer.innerHTML = events;
-  saveEvents();
+  //saveEvents();
 }
-
-//function to add event
-addEventBtn.addEventListener("click", () => {
-  addEventWrapper.classList.toggle("active");
-});
-
-addEventCloseBtn.addEventListener("click", () => {
-  addEventWrapper.classList.remove("active");
-});
-
+/*
 document.addEventListener("click", (e) => {
   if (e.target !== addEventBtn && !addEventWrapper.contains(e.target)) {
     addEventWrapper.classList.remove("active");
@@ -290,7 +275,7 @@ addEventTo.addEventListener("input", (e) => {
   if (addEventTo.value.length > 5) {
     addEventTo.value = addEventTo.value.slice(0, 5);
   }
-});
+});*/
 
 //function to add event to eventsArr
 addEventSubmit.addEventListener("click", () => {
@@ -412,7 +397,7 @@ eventsContainer.addEventListener("click", (e) => {
     }
   }
 });
-
+/*
 //function to save events in local storage
 function saveEvents() {
   localStorage.setItem("events", JSON.stringify(eventsArr));
@@ -425,6 +410,22 @@ function getEvents() {
     return;
   }
   eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+}*/
+
+function setEventsCal(events) {
+  for (let i = 0; i < events.length; i++) {
+    const newEvent = {
+      title: events[i].servicio,
+      time: convertTime(events[i].horaI) + " - " + convertTime(events[i].horaF),
+    };
+    eventsArr.push({
+      day: new Date(events[i].fecha).getDate() + 1,
+      month: new Date(events[i].fecha).getMonth() + 1,
+      year: new Date(events[i].fecha).getFullYear(),
+      events: [newEvent],
+    });
+  }
+  initCalendar();
 }
 
 function convertTime(time) {
@@ -436,4 +437,58 @@ function convertTime(time) {
   timeHour = timeHour % 12 || 12;
   time = timeHour + ":" + timeMin + " " + timeFormat;
   return time;
+}
+
+function test() {
+  const req = new XMLHttpRequest();
+  let fecha1 = {
+    year: year,
+    month: month,
+    day: activeDay,
+  };
+  req.onreadystatechange = function () {
+    if (req.readyState == XMLHttpRequest.DONE) {
+      console.log(req.responseText);
+    }
+  };
+  req.open("POST", "login", true);
+  req.setRequestHeader("Content-type", "application/json");
+  req.send(JSON.stringify(fecha1));
+}
+
+function sendCalData() {
+  const req = new XMLHttpRequest();
+  let calData = {
+    emp: 1, // Cambiar
+    //serv: null,
+    st: false,
+  };
+  req.onreadystatechange = function () {
+    if (req.readyState == XMLHttpRequest.DONE) {
+      eventsCal = JSON.parse(req.responseText);
+      setEventsCal(eventsCal);
+    }
+  };
+  req.open("POST", "agendar", true);
+  req.setRequestHeader("Content-type", "application/json");
+  req.send(JSON.stringify(calData));
+}
+
+function sendCita() {
+  const req = new XMLHttpRequest();
+  let f = `${year}-${month}-${activeDay}`;
+  let cita = {
+    fecha: f,
+    hora: null,
+    nom: null,
+    ap: null,
+    am: null,
+    tel: null,
+    emp: null, //Agregar
+    serv: null, //Agregar
+    st: true,
+  };
+  req.open("POST", "agendar", true);
+  req.setRequestHeader("Content-type", "application/json");
+  req.send(JSON.stringify(cita));
 }
