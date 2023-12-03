@@ -36,40 +36,61 @@ export async function calendario(emp) {
   return citas;
 }
 
-export async function getCliente(obj) {
+export async function calendarioCl(emp) {
   let database = await startConection();
-  let res = await database.execute(`SELECT checkCliente("${obj.tel}");`);
+  let e = parseInt(emp);
+  let citas = await database.execute(
+    `SELECT getCitasCalendarioCl(${e}) AS temp;`
+  );
+  endConection(database);
+  return citas;
+}
+
+export async function getCliente(tel) {
+  let database = await startConection();
+  let res = await database.execute(`SELECT getCliente("${tel}") AS temp;`);
   endConection(database);
   return res;
 }
 
-export async function getCita(obj) {
+export async function getCita(tel, fecha, hora) {
+  console.log(tel);
+  console.log(fecha);
+  console.log(hora);
+  let database = await startConection();
+  let res = await database.execute(
+    `SELECT getCita("${tel}", "${fecha}", "${hora}") AS temp;`
+  );
+  endConection(database);
+  return res;
+}
+
+export async function checkCliente(tel) {
+  let database = await startConection();
+  let res = await database.execute(`SELECT checkCliente("${tel}") AS temp;`);
+  endConection(database);
+  return res;
+}
+
+export async function addCita(cliente, emp, fecha, hora, serv) {
   let database = await startConection();
   await database.execute(
-    `SELECT getCita("${obj.tel}", "${obj.fecha}", "${obj.hora}");`
+    `CALL addCita(${cliente}, ${emp}, "${fecha}", "${hora}", '{"serv":[${serv}]}');`
   );
   endConection(database);
 }
 
-export async function addCita(cita) {
+export async function addCliente(nom, ap, am, tel) {
   let database = await startConection();
   await database.execute(
-    `CALL addCita(${cita.cliente}, ${cita.emp}, "${cita.fecha}", "${cita.hora}", '"serv":{${cita.serv}}');`
+    `CALL addCliente("${nom}", "${ap}", "${am}", "${tel}");`
   );
   endConection(database);
 }
 
-export async function addCliente(cliente) {
+export async function addServCita(cita, serv) {
   let database = await startConection();
-  await database.execute(
-    `CALL addCliente("${cliente.nom}", "${cliente.ap}", "${cliente.am}", "${cliente.tel}");`
-  );
-  endConection(database);
-}
-
-export async function addServCita(obj) {
-  let database = await startConection();
-  await database.execute(`CALL addServiciosCita(${obj.serv}, ${obj.serv});`);
+  await database.execute(`CALL addServiciosCita(${cita}, ${serv});`);
   endConection(database);
 }
 
