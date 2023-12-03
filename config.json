@@ -1,0 +1,14 @@
+{
+    "testing": true,
+    "host": "127.0.0.1",
+    "hostSecundario": "207.231.110.51",
+    "puertos": {
+        "http": 80,
+        "db": 3306
+    },
+    "db": {
+        "usuario": "root",
+        "password": "Pr0y3ct0_FYJSW!",
+        "baseDatos": "salon"
+    }
+}
