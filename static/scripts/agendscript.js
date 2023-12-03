@@ -8,14 +8,14 @@ const calendar = document.querySelector(".calendar"),
   dateInput = document.querySelector(".date-input"),
   eventDay = document.querySelector(".event-day"),
   eventDate = document.querySelector(".event-date"),
-  eventsContainer = document.querySelector(".events"),
+  eventsContainer = document.querySelector(".events"); /*,
   addEventBtn = document.querySelector(".add-event"),
   addEventWrapper = document.querySelector(".add-event-wrapper "),
   addEventCloseBtn = document.querySelector(".close "),
   addEventTitle = document.querySelector(".event-name "),
   addEventFrom = document.querySelector(".event-time-from "),
   addEventTo = document.querySelector(".event-time-to "),
-  addEventSubmit = document.querySelector(".add-event-btn ");
+  addEventSubmit = document.querySelector(".add-event-btn ")*/
 
 let today = new Date();
 let activeDay;
@@ -37,8 +37,9 @@ const months = [
   "Diciembre",
 ];
 
-const eventsArr = [];
+let eventsArr = [];
 let eventsCal;
+let actualEmp;
 //getEvents();
 console.log(eventsArr);
 
@@ -238,7 +239,7 @@ function updateEvents(date) {
   });
   if (events === "") {
     events = `<div class="no-event">
-            <h3>No Events</h3>
+            <h3>Sin Citas</h3>
         </div>`;
   }
   eventsContainer.innerHTML = events;
@@ -278,7 +279,7 @@ addEventTo.addEventListener("input", (e) => {
 });*/
 
 //function to add event to eventsArr
-addEventSubmit.addEventListener("click", () => {
+/*addEventSubmit.addEventListener("click", () => {
   const eventTitle = addEventTitle.value;
   const eventTimeFrom = addEventFrom.value;
   const eventTimeTo = addEventTo.value;
@@ -364,7 +365,7 @@ addEventSubmit.addEventListener("click", () => {
   if (!activeDayEl.classList.contains("event")) {
     activeDayEl.classList.add("event");
   }
-});
+});*/
 
 //function to delete event when clicked on event
 eventsContainer.addEventListener("click", (e) => {
@@ -415,7 +416,8 @@ function getEvents() {
 function setEventsCal(events) {
   for (let i = 0; i < events.length; i++) {
     const newEvent = {
-      title: events[i].servicio,
+      //title: events[i].servicio, Para el cal del Emp
+      title: "Ocupado",
       time: convertTime(events[i].horaI) + " - " + convertTime(events[i].horaF),
     };
     eventsArr.push({
@@ -456,16 +458,18 @@ function test() {
   req.send(JSON.stringify(fecha1));
 }
 
-function sendCalData() {
+function sendCalData(emp) {
+  actualEmp = emp;
   const req = new XMLHttpRequest();
   let calData = {
-    emp: 1, // Cambiar
+    emp: emp, // Cambiar
     //serv: null,
     st: false,
   };
   req.onreadystatechange = function () {
     if (req.readyState == XMLHttpRequest.DONE) {
       eventsCal = JSON.parse(req.responseText);
+      eventsArr = [];
       setEventsCal(eventsCal);
     }
   };
@@ -476,16 +480,17 @@ function sendCalData() {
 
 function sendCita() {
   const req = new XMLHttpRequest();
-  let f = `${year}-${month}-${activeDay}`;
+  let acMonth = today.getMonth() + 1;
+  let f = `${year}-${acMonth}-${activeDay}`;
   let cita = {
     fecha: f,
-    hora: null,
-    nom: null,
-    ap: null,
-    am: null,
-    tel: null,
-    emp: null, //Agregar
-    serv: null, //Agregar
+    hora: document.getElementById("hour").value,
+    nom: document.getElementById("name").value,
+    ap: document.getElementById("ap").value,
+    am: document.getElementById("am").value,
+    tel: document.getElementById("tel").value,
+    emp: actualEmp,
+    serv: ["1", "3", "5"], //Agregar
     st: true,
   };
   req.open("POST", "agendar", true);
