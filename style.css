@@ -79,6 +79,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+input{
+  accent-color: #ff66ff;
+}
 .card{
   position: relative;
   width: 200px;
@@ -477,6 +480,11 @@ input[type=text]{
   color: #fff;
   background-color: #ff99ff;
   border: 1px solid #ff99ff;
+}
+.agendar-btn button:active {
+  color: #fff;
+  background-color: #ff66ff;
+  border: 1px solid #ff66ff;
 }
 /*--------------------------- Info contacto ---------------------------*/
 .back-info{
