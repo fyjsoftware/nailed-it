@@ -38,6 +38,7 @@ const months = [
 ];
 
 let eventsArr = [];
+let serv;
 let eventsCal;
 let actualEmp;
 //getEvents();
@@ -413,6 +414,27 @@ function getEvents() {
   eventsArr.push(...JSON.parse(localStorage.getItem("events")));
 }*/
 
+function getServ() {
+  // this function will get called when the save button is clicked
+  var itemForm = document.querySelector("form");
+  var checkBoxes = itemForm.querySelectorAll('input[type="checkbox"]');
+  serv = [];
+  checkBoxes.forEach((item) => {
+    // loop all the checkbox item
+    if (item.checked) {
+      console.log(item.value);
+      let data = {
+        // create an object
+        item: item.value,
+        selected: item.checked,
+      };
+      serv.push(item.value); //stored the objects to result array
+    }
+  });
+  //document.querySelector(".result").textContent = JSON.stringify(serv); // display result
+  console.log(serv);
+}
+
 function setEventsCal(events) {
   for (let i = 0; i < events.length; i++) {
     const newEvent = {
@@ -441,23 +463,6 @@ function convertTime(time) {
   return time;
 }
 
-function test() {
-  const req = new XMLHttpRequest();
-  let fecha1 = {
-    year: year,
-    month: month,
-    day: activeDay,
-  };
-  req.onreadystatechange = function () {
-    if (req.readyState == XMLHttpRequest.DONE) {
-      console.log(req.responseText);
-    }
-  };
-  req.open("POST", "login", true);
-  req.setRequestHeader("Content-type", "application/json");
-  req.send(JSON.stringify(fecha1));
-}
-
 function sendCalData(emp) {
   actualEmp = emp;
   const req = new XMLHttpRequest();
@@ -479,6 +484,7 @@ function sendCalData(emp) {
 }
 
 function sendCita() {
+  getServ();
   const req = new XMLHttpRequest();
   let acMonth = today.getMonth() + 1;
   let f = `${year}-${acMonth}-${activeDay}`;
@@ -490,10 +496,10 @@ function sendCita() {
     am: document.getElementById("am").value,
     tel: document.getElementById("tel").value,
     emp: actualEmp,
-    serv: ["1", "3", "5"], //Agregar
+    serv: serv, //Agregar
     st: true,
-  };
+  }; /*
   req.open("POST", "agendar", true);
   req.setRequestHeader("Content-type", "application/json");
-  req.send(JSON.stringify(cita));
+  req.send(JSON.stringify(cita));*/
 }
