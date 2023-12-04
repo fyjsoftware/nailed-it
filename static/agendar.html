@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale-1.0" />
-    <link rel="stylesheet" type="text/css" href="./styles/agendstyle.css" />
+    <link rel="stylesheet" href="./styles/agendstyle.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -12,7 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referer"
     />
-    <title>Angenda tu cita</title>
+    <title>Agenda tu cita</title>
   </head>
   <body>
     <header>
@@ -47,11 +47,11 @@
     <!----------------------------- My code ----------------------------->
     <!----------------------------- Mensaje / Cards ----------------------------->
     <div class="mensaje">
-      <br />A CONTINUACIÓN, INGRESA LOS DATOS PARA PODER AGENDAR TU CITA
+      <br />A continuación, ingresa los datos para poder agendar tu cita
     </div>
-    <div class="emp"><br /><br />EMPLEADAS</div>
+    <div class="emp"><br /><br />Empleadas</div>
     <div class="all-cards">
-      <div class="card">
+      <div onclick="sendCalData(1)" class="card">
         <div class="head">
           <div class="img">
             <img
@@ -62,17 +62,19 @@
         <div class="description">
           <h2>Nombre</h2>
           <h3>Servicios</h3>
-          <h4>• Serv 1</h4>
-          <h4>• Serv 2</h4>
-          <h4>• Serv 3</h4>
-          <h4>• Serv 4</h4>
+          <h4>
+            <input type="checkbox" name="serv" value="s1" /> Serv 1<br />
+            <input type="checkbox" name="serv" value="s2" /> Serv 2<br />
+            <input type="checkbox" name="serv" value="s3" /> Serv 3<br />
+            <input type="checkbox" name="serv" value="s4" /> Serv 4<br />
+          </h4>
         </div>
         <div class="contact">
           <h4>Contacto <br />686 123 45678</h4>
         </div>
       </div>
 
-      <div class="card">
+      <div onclick="sendCalData(2)" class="card">
         <div class="head">
           <div class="img">
             <img
@@ -83,17 +85,21 @@
         <div class="description">
           <h2>Nombre</h2>
           <h3>Servicios</h3>
-          <h4>• Serv 1</h4>
-          <h4>• Serv 2</h4>
-          <h4>• Serv 3</h4>
-          <h4>• Serv 4</h4>
+          <h4>
+            <form action="">
+              <input type="checkbox" name="serv" value="s1" /> Serv 1<br />
+              <input type="checkbox" name="serv" value="s2" /> Serv 2<br />
+              <input type="checkbox" name="serv" value="s3" /> Serv 3<br />
+              <input type="checkbox" name="serv" value="s4" /> Serv 4<br />
+            </form>
+          </h4>
         </div>
         <div class="contact">
           <h4>Contacto <br />686 123 45678</h4>
         </div>
       </div>
 
-      <div class="card">
+      <div onclick="sendCalData(3)" class="card">
         <div class="head">
           <div class="img">
             <img
@@ -104,17 +110,19 @@
         <div class="description">
           <h2>Nombre</h2>
           <h3>Servicios</h3>
-          <h4>• Serv 1</h4>
-          <h4>• Serv 2</h4>
-          <h4>• Serv 3</h4>
-          <h4>• Serv 4</h4>
+          <h4>
+            <input type="checkbox" name="serv" value="s1" /> Serv 1<br />
+            <input type="checkbox" name="serv" value="s2" /> Serv 2<br />
+            <input type="checkbox" name="serv" value="s3" /> Serv 3<br />
+            <input type="checkbox" name="serv" value="s4" /> Serv 4<br />
+          </h4>
         </div>
         <div class="contact">
           <h4>Contacto <br />686 123 45678</h4>
         </div>
       </div>
 
-      <div class="card">
+      <div onclick="sendCalData(4)" class="card">
         <div class="head">
           <div class="img">
             <img
@@ -125,17 +133,19 @@
         <div class="description">
           <h2>Nombre</h2>
           <h3>Servicios</h3>
-          <h4>• Serv 1</h4>
-          <h4>• Serv 2</h4>
-          <h4>• Serv 3</h4>
-          <h4>• Serv 4</h4>
+          <h4>
+            <input type="checkbox" name="serv" value="s1" /> Serv 1<br />
+            <input type="checkbox" name="serv" value="s2" /> Serv 2<br />
+            <input type="checkbox" name="serv" value="s3" /> Serv 3<br />
+            <input type="checkbox" name="serv" value="s4" /> Serv 4<br />
+          </h4>
         </div>
         <div class="contact">
           <h4>Contacto <br />686 123 45678</h4>
         </div>
       </div>
 
-      <div class="card">
+      <div onclick="sendCalData(5)" class="card">
         <div class="head">
           <div class="img">
             <img
@@ -143,13 +153,16 @@
             />
           </div>
         </div>
+
         <div class="description">
           <h2>Nombre</h2>
           <h3>Servicios</h3>
-          <h4>• Serv 1</h4>
-          <h4>• Serv 2</h4>
-          <h4>• Serv 3</h4>
-          <h4>• Serv 4</h4>
+          <h4>
+            <input type="checkbox" name="serv" value="s1" /> Serv 1<br />
+            <input type="checkbox" name="serv" value="s2" /> Serv 2<br />
+            <input type="checkbox" name="serv" value="s3" /> Serv 3<br />
+            <input type="checkbox" name="serv" value="s4" /> Serv 4<br />
+          </h4>
         </div>
         <div class="contact">
           <h4>Contacto <br />686 123 45678</h4>
@@ -157,12 +170,19 @@
       </div>
     </div>
     <div class="datos">
-      <br /><br />INGRESE SU NOMBRE COMPLETO Y NÚMERO TELEFÓNICO:
+      <br /><br /><br />Ingrese su nombre completo y número telefónico:
     </div>
-    <input type="text" id="name" placeholder="NOMBRE" />
-    <input type="text" id="name" placeholder="TELÉFONO" />
+    <div class="all-textbox">
+      <input type="text" id="ap" placeholder="Apellido paterno" />
+      <input type="text" id="am" placeholder="Apellido materno" />
+      <input type="text" id="name" placeholder="Nombre" />
+      <input type="text" id="tel" placeholder="Teléfono" />
+    </div>
     <!----------------------------- Calendario ----------------------------->
-    <div class="agendar"><br /><br />¿QUE DÍA Y HORA TE GUSTARÍA AGENDAR?</div>
+    <div class="agendar-msg">
+      <br /><br /><br />¿Qué día y hora te gustaría agendar?
+    </div>
+
     <div class="container">
       <div class="left">
         <div class="calendar">
@@ -181,9 +201,12 @@
             <div>Sab</div>
           </div>
           <div class="days"></div>
-          <!--<div class="goto-today">
-                  <button class="today-btn">Día de hoy</button>
-                </div>-->
+        </div>
+        <div class="agendar">
+          <input type="text" id="hour" placeholder="Hora" />
+          <div class="agendar-btn">
+            <button onclick="sendCita()" class="msg">Agendar cita</button>
+          </div>
         </div>
       </div>
       <div class="right">
@@ -194,9 +217,9 @@
         <div class="events"></div>
       </div>
     </div>
-    <div class="cita">
-      <button onclick="sendCalData();">Cita</button>
-    </div>
+    <!--<div class="cita">
+          <button onclick="sendCalData();">Cita</button>
+        </div>-->
     <div class="back-info">
       <div class="info">
         Dirección: Av. Jdn. Sur, Jardines del Valle, 21280 Mexicali, B.C.
