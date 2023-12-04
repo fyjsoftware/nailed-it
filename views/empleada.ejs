@@ -1,0 +1,131 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles/vestyle.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Fasthand&family=Pacifico&family=Poppins&family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <title>Love For Nails</title>
+    <link rel="icon" type="image/x-icon" href="sources/favicon.ico" />
+    <script src="scripts/vescript.js"></script>
+  </head>
+
+  <body>
+    <div id="backgroundOverlay" class="background-overlay"></div>
+    <header>
+      <div>
+        <div class="menu">
+          <img src="sources/logo1.jpg" class="logo" alt="logo Love for Nails" />
+          <!-- PARTE RESPONSIVA-->
+
+          <nav class="navbar">
+            <ul>
+              <li>
+                <a id="notif" href="#"><i class="fa fa-bell"></i></a>
+              </li>
+              <li>
+                <a
+                  ><i class="fa fa-user"></i> ¡Bienvenida, <%- usuario %>!
+                  <i class="fa fa-caret-down"></i
+                ></a>
+                <ul class="submenu">
+                  <li>
+                    <a id="administrarCitas" href="#"
+                      ><i class="fa fa-calendar"></i> Administrar citas</a
+                    >
+                  </li>
+                  <li>
+                    <a id="ajusteTrabajo" href="#"
+                      ><i class="fa fa-briefcase"></i> Ajuste de trabajo</a
+                    >
+                  </li>
+                  <li>
+                    <a id="logout" href="#"
+                      ><i class="fa fa-key"></i> Cerrar sesión</a
+                    >
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div class="cuerpo">
+      <div class="card">
+        <div class="head">
+          <div class="img">
+            <img src="sources/avatar/<%- id %>.jpg" />
+          </div>
+        </div>
+        <div class="description">
+          <h2><%- nombre %></h2>
+          <h3>Servicios</h3>
+          <% for (var i = 0; i < servicios.length; i++) { %>
+          <h4>• <%- servicios[i] %></h4>
+          <% }; %>
+        </div>
+        <div class="contact">
+          <h4>Contacto <br /><%- telefono %></h4>
+        </div>
+        <img src="sources/logoTrans.png" width="100px" />
+      </div>
+      <div class="container">
+        <div class="left">
+          <div class="calendar">
+            <div class="month">
+              <i class="fa fa-angle-left prev"></i>
+              <div class="date"></div>
+              <i class="fa fa-angle-right next"></i>
+            </div>
+            <div class="weekdays">
+              <div>Dom</div>
+              <div>Lun</div>
+              <div>Mar</div>
+              <div>Mie</div>
+              <div>Jue</div>
+              <div>Vie</div>
+              <div>Sab</div>
+            </div>
+            <div class="days"></div>
+            <!--<div class="goto-today">
+                    <button class="today-btn">Día de hoy</button>
+                  </div>-->
+          </div>
+        </div>
+        <div class="right">
+          <div class="today-date">
+            <div class="event-day"></div>
+            <div class="event-date"></div>
+          </div>
+          <div class="events"></div>
+        </div>
+      </div>
+    </div>
+    <div id="popupNotif" class="popupNotif">
+      <p>Aquí se mostrarán las notificaciones de la empleada.</p>
+      <button id="cerrarNotif">Cerrar</button>
+    </div>
+    <div id="popupCitas" class="popupCitas">
+      <p>
+        Este botón actúa como la interfaz de la empleada para modificar,
+        explorar, cancelar y administrar las citas. Este botón se va a eliminar,
+        la idea es poner botones de iconos al lado de cada cita en su lugar.
+      </p>
+      <button id="cerrarCitas">Cerrar</button>
+    </div>
+    <div id="popupTrabajo" class="popupTrabajo">
+      <p>
+        Este botón es para que la empleada pueda ajustar su perfil de trabajo,
+        lo que verán los clientes a la hora de agendar una cita.
+      </p>
+      <button id="cerrarTrabajo">Cerrar</button>
+    </div>
+    <script src="scripts/agendscript.js"></script>
+  </body>
+</html>
