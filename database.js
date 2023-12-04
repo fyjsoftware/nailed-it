@@ -1,17 +1,13 @@
 import * as mysql from "mysql2/promise";
 import * as fs from "fs/promises";
-//import { fileURLToPath } from "url"; SIN INSTALAR
-// import path from "path"; SIN INSTALAR
+import * as logger from "./logger.js";
 
 const config = JSON.parse(
   await fs.readFile(new URL("./config.json", import.meta.url))
 );
 
-//const __filename = fileURLToPath(import.meta.url);
-//const __dirname = path.dirname(__filename);
-
 export async function startConection() {
-  console.log("DB Conection Started!");
+  logger.info("Conexión con la base de datos iniciada.");
   return await mysql.createConnection({
     host: config.testing ? config.hostSecundario : config.host,
     port: config.puertos.db,
@@ -22,7 +18,7 @@ export async function startConection() {
 }
 
 export async function endConection(db) {
-  console.log("DB Conection Finished!");
+  logger.info("Conexión con la base de datos finalizada.");
   db.end;
 }
 
@@ -51,6 +47,25 @@ export async function getCliente(tel) {
   let res = await database.execute(`SELECT getCliente("${tel}") AS temp;`);
   endConection(database);
   return res;
+}
+
+export async function getLogin(obj) {
+  let database = await startConection();
+  let res = await database.execute(
+    `SELECT checkLogin("${obj.email}", "${obj.password}");`
+  );
+  endConection(database);
+  return res[0][0][`checkLogin("${obj.email}", "${obj.password}")`] > 0;
+}
+
+export async function getEmpleada(obj) {
+  let database = await startConection();
+  let res = await database.execute(
+    `SELECT * FROM empleado WHERE correo = "${obj.email}";`
+  );
+  console.log(res);
+  endConection(database);
+  return res[0][0];
 }
 
 export async function getCita(tel, fecha, hora) {
@@ -93,10 +108,3 @@ export async function addServCita(cita, serv) {
   await database.execute(`CALL addServiciosCita(${cita}, ${serv});`);
   endConection(database);
 }
-
-//export const database = await conexion();
-//let consulta = await calendario();
-//consulta = JSON.parse(consulta);
-//let fecha = new Date(consulta[0][2].fecha);
-//console.log(consulta[0]);
-//await endConection(database);
