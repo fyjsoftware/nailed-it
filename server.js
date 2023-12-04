@@ -2,8 +2,11 @@ import * as logger from "./logger.js";
 import * as database from "./database.js";
 import express, { query } from "express";
 import bodyParser from "body-parser";
+import favicon from "serve-favicon";
 import * as fs from "fs/promises";
+import session from "express-session";
 import path from "path";
+import { v4 as uuidv4 } from "uuid";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -15,20 +18,41 @@ const config = JSON.parse(
 
 const app = express();
 
+app.use(
+  session({
+    secret: uuidv4(),
+    resave: true,
+    saveUninitialized: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/static"));
-//app.use(favicon(__dirname + "/static/favicon.ico"));
+app.use(favicon(__dirname + "/static/sources/favicon.ico"));
+app.set("views", __dirname + "/views");
+app.set("view engine", "ejs");
 
 export async function iniciar() {
-  /*app.use(async function (request, response) {
-  response.setHeader('Content-Type', 'text/plain');
-  console.log(request.body.data);
-  response.end(request.body.data);
-});*/
-
   app.get("/", async function (request, response) {
-    await response.sendFile(__dirname + "/static/inicio.html");
+    if (request.session.loggedin) {
+      console.log(request.session.email);
+      let datos = await database.getEmpleada({ email: request.session.email });
+      await response.render("empleada", {
+        id: datos.PKIdEmpleado,
+        usuario: datos.nombre,
+        nombre: datos.nombre + " " + datos.paterno + " " + datos.materno,
+        servicios: [
+          "PENDIENTE",
+          "PENDIENTE",
+          "PENDIENTE",
+          "PENDIENTE",
+          "PENDIENTE",
+        ],
+        telefono: datos.telefono,
+      });
+    } else {
+      await response.sendFile(__dirname + "/static/inicio.html");
+    }
   });
 
   //Agendar
@@ -79,25 +103,30 @@ export async function iniciar() {
       response.send(json[0][0].temp).end(); //Que haga algo
     }
   });
-
   // Login
   app.get("/login", async function (request, response) {
     await response.sendFile(__dirname + "/static/login.html");
   });
 
   app.post("/login", async function (request, response) {
-    let st = false; //No da nada
-    //Agregar procedimiento para login
-    if (st === true) {
-      //response.redirect("/login/user"); //Por Definir redirecionamiento al perfil
+    let login = await database.getLogin({
+      email: request.body.email,
+      password: request.body.password,
+    });
+    if (login) {
+      request.session.loggedin = true;
+      request.session.email = request.body.email;
+      await response.redirect("/");
     } else {
-      //response.send("ALGO"); //Que haga algo
+      await response.send(
+        `<script>window.alert("Email o contraseña incorrecta. Por favor, verifique e intente de nuevo."); history.back();</script>`
+      );
     }
   });
 
-  // Empleadas (POR DEFINIR)
-  app.get("/login/user", async function (request, response) {
-    //await response.sendFile(__dirname + "/static/login.html");
+  app.get("/logout", async function (request, response) {
+    await request.session.destroy();
+    await response.redirect("/");
   });
 
   app.listen(config.puertos.http, config.host, async function () {
