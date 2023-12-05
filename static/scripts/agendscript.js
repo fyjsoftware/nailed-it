@@ -247,7 +247,6 @@ function updateEvents(date) {
         </div>`;
   }
   eventsContainer.innerHTML = events;
-  //saveEvents();
 }
 /*
 document.addEventListener("click", (e) => {
@@ -402,20 +401,6 @@ eventsContainer.addEventListener("click", (e) => {
     }
   }
 });
-/*
-//function to save events in local storage
-function saveEvents() {
-  localStorage.setItem("events", JSON.stringify(eventsArr));
-}
-
-//function to get events from local storage
-function getEvents() {
-  //check if events are already saved in local storage then return event else nothing
-  if (localStorage.getItem("events") === null) {
-    return;
-  }
-  eventsArr.push(...JSON.parse(localStorage.getItem("events")));
-}*/
 
 function setEmpServ(emp) {
   switch (emp) {
@@ -466,19 +451,10 @@ function getServ() {
   setEmpServ(actualEmp);
   serv = [];
   checkBoxes.forEach((item) => {
-    // loop all the checkbox item
     if (item.checked) {
-      console.log(item.value);
-      let data = {
-        // create an object
-        item: item.value,
-        selected: item.checked,
-      };
-      serv.push(item.value); //stored the objects to result array
+      serv.push(item.value);
     }
   });
-  //document.querySelector(".result").textContent = JSON.stringify(serv); // display result
-  console.log(serv);
 }
 
 function setEventsCal(events) {
@@ -516,13 +492,12 @@ function sendCalData(emp) {
   actualEmp = emp;
   const req = new XMLHttpRequest();
   let calData = {
-    emp: emp, // Cambiar
-    //serv: null,
+    emp: emp,
     st: false,
   };
   req.onreadystatechange = function () {
     if (req.readyState == XMLHttpRequest.DONE) {
-      setCleanServ(actualEmp); // Modificar
+      setCleanServ(actualEmp);
       cleanEvents();
       try {
         eventsCal = JSON.parse(req.responseText);
@@ -550,10 +525,10 @@ function sendCita() {
     am: document.getElementById("am").value,
     tel: document.getElementById("tel").value,
     emp: actualEmp,
-    serv: serv, //Agregar
+    serv: serv,
     st: true,
-  }; /*
+  };
   req.open("POST", "agendar", true);
   req.setRequestHeader("Content-type", "application/json");
-  req.send(JSON.stringify(cita));*/
+  req.send(JSON.stringify(cita));
 }
