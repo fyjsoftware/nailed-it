@@ -17,6 +17,9 @@ const calendar = document.querySelector(".calendar"),
   addEventTo = document.querySelector(".event-time-to "),
   addEventSubmit = document.querySelector(".add-event-btn ")*/
 
+var itemForm;
+var checkBoxes;
+
 let today = new Date();
 let activeDay;
 let month = today.getMonth();
@@ -414,10 +417,53 @@ function getEvents() {
   eventsArr.push(...JSON.parse(localStorage.getItem("events")));
 }*/
 
+function setEmpServ(emp) {
+  switch (emp) {
+    case 1:
+      itemForm = document.getElementById("form1");
+      checkBoxes = itemForm.querySelectorAll('input[type="checkbox"]');
+      break;
+    case 2:
+      itemForm = document.getElementById("form2");
+      checkBoxes = itemForm.querySelectorAll('input[type="checkbox"]');
+      break;
+    case 3:
+      itemForm = document.getElementById("form3");
+      checkBoxes = itemForm.querySelectorAll('input[type="checkbox"]');
+      break;
+    case 4:
+      itemForm = document.getElementById("form4");
+      checkBoxes = itemForm.querySelectorAll('input[type="checkbox"]');
+      break;
+    case 5:
+      itemForm = document.getElementById("form5");
+      checkBoxes = itemForm.querySelectorAll('input[type="checkbox"]');
+      break;
+
+    default:
+      break;
+  }
+}
+
+function setCleanServ(sCheckbox) {
+  for (let i = 1; i < 6; i++) {
+    setEmpServ(i);
+    if (i !== sCheckbox) {
+      checkBoxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+    }
+  }
+}
+
+function cleanEvents() {
+  while (eventsArr.length > 0) {
+    eventsArr.pop();
+  }
+}
+
 function getServ() {
-  // this function will get called when the save button is clicked
-  var itemForm = document.querySelector("form");
-  var checkBoxes = itemForm.querySelectorAll('input[type="checkbox"]');
+  setEmpServ(actualEmp);
   serv = [];
   checkBoxes.forEach((item) => {
     // loop all the checkbox item
@@ -436,18 +482,21 @@ function getServ() {
 }
 
 function setEventsCal(events) {
-  for (let i = 0; i < events.length; i++) {
-    const newEvent = {
-      //title: events[i].servicio, Para el cal del Emp
-      title: "Ocupado",
-      time: convertTime(events[i].horaI) + " - " + convertTime(events[i].horaF),
-    };
-    eventsArr.push({
-      day: new Date(events[i].fecha).getDate() + 1,
-      month: new Date(events[i].fecha).getMonth() + 1,
-      year: new Date(events[i].fecha).getFullYear(),
-      events: [newEvent],
-    });
+  if (events != null) {
+    for (let i = 0; i < events.length; i++) {
+      const newEvent = {
+        //title: events[i].servicio, Para el cal del Emp
+        title: "Ocupado",
+        time:
+          convertTime(events[i].horaI) + " - " + convertTime(events[i].horaF),
+      };
+      eventsArr.push({
+        day: new Date(events[i].fecha).getDate() + 1,
+        month: new Date(events[i].fecha).getMonth() + 1,
+        year: new Date(events[i].fecha).getFullYear(),
+        events: [newEvent],
+      });
+    }
   }
   initCalendar();
 }
@@ -473,9 +522,14 @@ function sendCalData(emp) {
   };
   req.onreadystatechange = function () {
     if (req.readyState == XMLHttpRequest.DONE) {
-      eventsCal = JSON.parse(req.responseText);
-      eventsArr = [];
-      setEventsCal(eventsCal);
+      setCleanServ(actualEmp); // Modificar
+      cleanEvents();
+      try {
+        eventsCal = JSON.parse(req.responseText);
+        setEventsCal(eventsCal);
+      } catch (SyntaxError) {
+        initCalendar();
+      }
     }
   };
   req.open("POST", "agendar", true);
