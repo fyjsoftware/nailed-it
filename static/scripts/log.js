@@ -16,5 +16,4 @@ icono.addEventListener("click", () => {
   }
   icono.innerHTML = i;
   pass.setAttribute("type", type);
-  console.log(1);
 });
