@@ -281,7 +281,7 @@ input[type=text]{
 .calendar .days .next-day{
   color: #b3b3b3;
 }
-.calendar .days .active {
+.calendar .days .active {     /**/
   position: relative;
   font-size: 2rem;
   color: #fff;
