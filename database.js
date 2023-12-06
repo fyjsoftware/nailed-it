@@ -87,6 +87,15 @@ export async function checkCliente(tel) {
   return res;
 }
 
+export async function checkFechaCita(emp, fecha, horaI, serv) {
+  let database = await startConection();
+  let res = await database.execute(
+    `SELECT checkFechaCita(${emp}, "${fecha}", "${horaI}", '{"serv":[${serv}]}') AS temp;`
+  );
+  endConection(database);
+  return res;
+}
+
 export async function addCita(cliente, emp, fecha, hora, serv) {
   let database = await startConection();
   await database.execute(
