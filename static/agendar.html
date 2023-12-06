@@ -15,6 +15,7 @@
     <title>Agenda tu cita</title>
   </head>
   <body>
+    <div id="backgroundOverlay" class="background-overlay"></div>
     <header>
       <div class="back">
         <div class="menu">
@@ -27,17 +28,13 @@
           <nav class="navbar">
             <ul>
               <li>
-                <a onclick="window.location = 'http://127.0.0.1/'">Inicio</a>
+                <a onclick="window.location = '/'">Inicio</a>
               </li>
               <li>
-                <a onclick="window.location = 'http://127.0.0.1/agendar'"
-                  >Agendar</a
-                >
+                <a onclick="window.location = '/agendar'">Agendar</a>
               </li>
               <li>
-                <a onclick="window.location = 'http://127.0.0.1/login'"
-                  >Log in</a
-                >
+                <a onclick="window.location = '/login'">Log in</a>
               </li>
             </ul>
           </nav>
@@ -51,7 +48,7 @@
     </div>
     <div class="emp"><br /><br />Empleadas</div>
     <div class="all-cards">
-      <div onclick="sendCalData(1)" class="card" tabindex="0">
+      <div onclick="sendCalData(1)" class="card">
         <div class="head">
           <div class="img">
             <img src="styles/perfil.jpg" />
@@ -223,6 +220,21 @@
         Dirección: Av. Jdn. Sur, Jardines del Valle, 21280 Mexicali, B.C.
         <br />Teléfono: (686) 222 7513
       </div>
+    </div>
+    <div id="popupError1" class="popupError1">
+      <p>Datos ingresados incorrectamente. Por favor ingréselos nuevamente.</p>
+      <button id="cerrarError1">Cerrar</button>
+    </div>
+    <div id="popupError2" class="popupError2">
+      <p>
+        Hay una cita en el horario seleccionado, Por favor cambie el horario o
+        la fecha para poder continuar.
+      </p>
+      <button id="cerrarError2">Cerrar</button>
+    </div>
+    <div id="popupNotif" class="popupNotif">
+      <p>Cita agregada correctamente.</p>
+      <button id="cerrarNotif">Cerrar</button>
     </div>
   </body>
   <script src="./scripts/agendscript.js"></script>
