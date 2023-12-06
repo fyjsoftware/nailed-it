@@ -65,38 +65,49 @@ export async function iniciar() {
     if (request.body.st === true) {
       console.log(request.body);
       let serv = [];
-      for (let i = 0; i < request.body.serv.length; i++) {
-        serv[i] = `"${request.body.serv[i]}"`;
-      }
-      let st = await database.checkCliente(request.body.tel);
-      console.log(st);
-      if (st[0][0].temp === 0) {
-        await database.addCliente(
-          request.body.nom,
-          request.body.ap,
-          request.body.am,
-          request.body.tel
-        );
-      }
-      let v1 = await database.getCliente(request.body.tel);
-      console.log(v1);
-      await database.addCita(
-        v1[0][0].temp,
+      let val = await database.checkFechaCita(
         request.body.emp,
         request.body.fecha,
         request.body.hora,
-        serv
+        request.body.serv
       );
-      let v2 = await database.getCita(
-        request.body.tel,
-        request.body.fecha,
-        request.body.hora
-      );
-      console.log(v2);
-      for (let i = 0; i < serv.length; i++) {
-        await database.addServCita(v2[0][0].temp, request.body.serv[i]);
+      console.log(val);
+      if (val[0][0].temp === 1) {
+        response.send("false").end();
+      } else {
+        for (let i = 0; i < request.body.serv.length; i++) {
+          serv[i] = `"${request.body.serv[i]}"`;
+        }
+        let st = await database.checkCliente(request.body.tel);
+        console.log(st);
+        if (st[0][0].temp === 0) {
+          await database.addCliente(
+            request.body.nom,
+            request.body.ap,
+            request.body.am,
+            request.body.tel
+          );
+        }
+        let v1 = await database.getCliente(request.body.tel);
+        console.log(v1);
+        await database.addCita(
+          v1[0][0].temp,
+          request.body.emp,
+          request.body.fecha,
+          request.body.hora,
+          serv
+        );
+        let v2 = await database.getCita(
+          request.body.tel,
+          request.body.fecha,
+          request.body.hora
+        );
+        console.log(v2);
+        for (let i = 0; i < serv.length; i++) {
+          await database.addServCita(v2[0][0].temp, request.body.serv[i]);
+        }
+        response.send("true").end(); //Por Definir redirecionamiento al perfil
       }
-      response.end(); //Por Definir redirecionamiento al perfil
     } else {
       let json = await database.calendarioCl(request.body.emp);
       console.log(json[0][0].temp);
