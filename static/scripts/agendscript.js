@@ -44,8 +44,25 @@ let eventsArr = [];
 let serv;
 let eventsCal;
 let actualEmp;
-//getEvents();
-console.log(eventsArr);
+
+document.addEventListener("DOMContentLoaded", function () {
+  var cards = document.querySelectorAll(".card");
+  cards.forEach(function (card) {
+    card.addEventListener("click", function () {
+      focus(card);
+    });
+  });
+});
+
+function focus(card) {
+  card.classList.add("focus");
+  var otherCards = document.querySelectorAll(".card");
+  otherCards.forEach(function (otherCard) {
+    if (otherCard !== card) {
+      otherCard.classList.remove("focus");
+    }
+  });
+}
 
 //function to add days in days with class day and prev-date next-date on previous month and next month
 //days and active on today
@@ -450,11 +467,13 @@ function cleanEvents() {
 function getServ() {
   setEmpServ(actualEmp);
   serv = [];
-  checkBoxes.forEach((item) => {
-    if (item.checked) {
-      serv.push(item.value);
-    }
-  });
+  try {
+    checkBoxes.forEach((item) => {
+      if (item.checked) {
+        serv.push(item.value);
+      }
+    });
+  } catch (TypeError) {}
 }
 
 function setEventsCal(events) {
@@ -475,6 +494,32 @@ function setEventsCal(events) {
     }
   }
   initCalendar();
+}
+
+function validarDatos(datos) {
+  if (!(new Date() > datos.fecha)) {
+    if (datos.serv.length > 0) {
+      if (datos.tel.length === 10) {
+        if (validarTiempo(datos.hora) === true) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+function validarTiempo(tiempo) {
+  let arr = tiempo.split(":");
+  let hor = arr[0];
+  let min = arr[1];
+  if (hor < 0 || hor > 23) {
+    return false;
+  } else if (min < 0 || min > 59) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function convertTime(time) {
@@ -528,7 +573,57 @@ function sendCita() {
     serv: serv,
     st: true,
   };
-  req.open("POST", "agendar", true);
-  req.setRequestHeader("Content-type", "application/json");
-  req.send(JSON.stringify(cita));
+  let st = validarDatos(cita);
+  if (st === true) {
+    req.onreadystatechange = function () {
+      if (req.readyState == XMLHttpRequest.DONE) {
+        if (req.responseText === "true") {
+          console.log(req.responseText);
+          setNotif();
+        } else {
+          console.log(req.responseText);
+          setError2();
+        }
+      }
+    };
+    req.open("POST", "agendar", true);
+    req.setRequestHeader("Content-type", "application/json");
+    req.send(JSON.stringify(cita));
+  } else {
+    setError1();
+  }
+}
+
+function setError1() {
+  const popupError1 = document.getElementById("popupError1");
+  const cerrarError1 = document.getElementById("cerrarError1");
+  document.getElementById("backgroundOverlay").style.display = "block";
+  popupError1.style.display = "block";
+  cerrarError1.addEventListener("click", function () {
+    document.getElementById("backgroundOverlay").style.display = "none";
+    popupError1.style.display = "none";
+  });
+}
+
+function setError2() {
+  const popupError2 = document.getElementById("popupError2");
+  const cerrarError2 = document.getElementById("cerrarError2");
+  document.getElementById("backgroundOverlay").style.display = "block";
+  popupError2.style.display = "block";
+  cerrarError2.addEventListener("click", function () {
+    document.getElementById("backgroundOverlay").style.display = "none";
+    popupError2.style.display = "none";
+  });
+}
+
+function setNotif() {
+  const popupNotif = document.getElementById("popupNotif");
+  const cerrarNotif = document.getElementById("cerrarNotif");
+  document.getElementById("backgroundOverlay").style.display = "block";
+  popupNotif.style.display = "block";
+  cerrarNotif.addEventListener("click", function () {
+    document.getElementById("backgroundOverlay").style.display = "none";
+    popupNotif.style.display = "none";
+    window.location = "http://127.0.0.1/";
+  });
 }
