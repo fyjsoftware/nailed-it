@@ -1,46 +1,43 @@
+/*--------------------------- Barra / Fondo ---------------------------*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
+  font-family: "poppins", sans-serif;
 }
-
 ::-webkit-scrollbar {
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
   background: pink;
   border-radius: 25px;
 }
-
 ::-webkit-scrollbar-thumb {
   background: white;
   border-radius: 25px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
   background-color: rgb(214, 38, 106);
 }
-
 body {
   background: linear-gradient(
     90deg,
     rgb(234, 93, 234) 25%,
     rgb(235, 103, 184) 73%
   );
-  font-family: "poppins", sans-serif;
 }
 .container {
   max-width: 1110px;
   margin: 0 auto;
 }
 .back {
-  padding: 32px 0;
-  background-color: white;
+  padding: 35px 0;
 }
 .menu {
+  background-color: white;
   position: absolute;
   top: 0;
   left: 0;
@@ -48,7 +45,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 1000;
 }
 .menu .navbar ul li {
   position: relative;
@@ -84,6 +80,9 @@ body {
   justify-content: center;
   align-items: center;
 }
+input {
+  accent-color: #ff66ff;
+}
 .card {
   position: relative;
   width: 200px;
@@ -95,6 +94,17 @@ body {
   margin: 15px 20px;
   display: inline-block;
   flex-wrap: wrap;
+  cursor: pointer;
+}
+.card.focus {
+  background-color: #ff99ff;
+}
+
+.card:hover {
+  background-color: #ffccff;
+}
+.card:active {
+  background-color: #ff99ff;
 }
 .card .head {
   height: 125px;
@@ -118,7 +128,7 @@ body {
   object-fit: cover;
 }
 .card .description {
-  height: 200px;
+  height: 280px;
   padding: 40px 20px 20px 20px;
   border-bottom: solid 1px rgba(6, 74, 76, 0.18);
   text-align: center;
@@ -133,6 +143,7 @@ body {
 .card .description h4 {
   color: #000;
 }
+
 .card .contact {
   width: 100%;
   height: 50px;
@@ -145,9 +156,13 @@ body {
   text-align: center;
   font-size: 25px;
 }
-
+.all-textbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 ::placeholder {
-  color: #000;
+  color: fff;
   font-size: 16.5px;
 }
 input[type="text"] {
@@ -155,12 +170,13 @@ input[type="text"] {
   border: 1px solid#708090;
   background-color: #e6e6fa;
   border-radius: 41px;
-  width: 25%;
-  margin: 20px 20px 50px 15%;
+  width: 22%;
   letter-spacing: 1.5px;
+  margin-top: 25px;
+  margin-right: 15px;
 }
 /*--------------------------- Calendario ---------------------------*/
-.agendar {
+.agendar-msg {
   color: #000;
   text-align: center;
   font-size: 25px;
@@ -173,7 +189,7 @@ input[type="text"] {
   width: 75%;
   min-height: 650px;
   margin-top: 20px;
-  margin-bottom: 15%;
+  margin-bottom: 8%;
   padding: 5px;
   color: #fff;
   display: flex;
@@ -187,11 +203,11 @@ input[type="text"] {
 .calendar {
   position: relative;
   width: 550px;
-  height: 600px;
+  height: 550px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  color: #878895;
+  color: #878895; 
   border-radius: 20px;
   background-color: #fff;
 }
@@ -216,7 +232,6 @@ input[type="text"] {
 }
 .calendar .weekdays {
   width: 100%;
-  height: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -224,10 +239,10 @@ input[type="text"] {
   font-size: 1.5rem;
   font-weight: 500;
   text-transform: capitalize;
+  margin-top: 15px;
 }
 .weekdays div {
   width: 14.28%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -240,7 +255,7 @@ input[type="text"] {
   padding: 0 20px;
   font-size: 1rem;
   font-weight: 500;
-  margin-bottom: 20px;
+  margin-top: 25px;
 }
 .calendar .days .day {
   width: 14.28%;
@@ -250,9 +265,8 @@ input[type="text"] {
   justify-content: center;
   cursor: pointer;
   color: var(--primary-clr);
-  border: 1px solid #f5f5f5;
+  border: 2px solid #f5f5f5;
 }
-
 .calendar .days .day:nth-child(7n + 1) {
   border-left: 2px solid #f5f5f5;
 }
@@ -265,8 +279,7 @@ input[type="text"] {
 .calendar .days .day:nth-child(n + 29) {
   border-bottom: 2px solid #f5f5f5;
 }
-
-.calendar .days .day:not(.prev-date, .next-day):hover {
+.calendar.day:not(.prev-date, .next-day):hover {
   color: #fff;
   background-color: var(--primary-clr);
 }
@@ -274,12 +287,11 @@ input[type="text"] {
 .calendar .days .next-date {
   color: #b3b3b3;
 }
-
 .calendar .days .active {
   position: relative;
   font-size: 2rem;
   color: #fff;
-  background-color: var(--primary-clr);
+  background-color: #ff99ff; 
 }
 .calendar .days .active::before {
   content: "";
@@ -288,7 +300,7 @@ input[type="text"] {
   left: 0;
   width: 100%;
   height: 100%;
-  box-shadow: 0 0 10px 2px var(--primary-clr);
+  box-shadow: 0 0 10px 2px #af4caf;
 }
 .calendar .days .today {
   font-size: 2rem;
@@ -305,7 +317,7 @@ input[type="text"] {
   height: 6px;
   border-radius: 30px;
   transform: translateX(-50%);
-  background-color: var(--primary-clr);
+  background-color: #ff99ff;
 }
 .calendar .days .day:hover.event::after {
   background-color: #fff;
@@ -317,14 +329,13 @@ input[type="text"] {
 .calendar .days .active.event {
   padding-bottom: 10px;
 }
-
+/* ------------------------ Citas ------------------------*/
 .container .right {
   position: relative;
   width: 40%;
   min-height: 100%;
   padding: 20px 0;
 }
-
 .right .today-date {
   width: 100%;
   height: 50px;
@@ -338,15 +349,17 @@ input[type="text"] {
   margin-top: 5%;
   margin-bottom: 20px;
   text-transform: capitalize;
+  color: var(--primary-clr); /*Día*/
 }
 .right .today-date .event-day {
   font-size: 2rem;
   font-weight: 500;
 }
 .right .today-date .event-date {
-  font-size: 1rem;
+  /*día/mes/año*/
+  font-size: 1.3rem;
   font-weight: 400;
-  color: #ffffff;
+  color: var(--primary-clr);
 }
 .events {
   width: 100%;
@@ -368,8 +381,9 @@ input[type="text"] {
   gap: 5px;
   padding: 0 20px;
   padding-left: 50px;
+  margin-left: 20px;
   color: #fff;
-  background: linear-gradient(90deg, #3f4458, transparent);
+  background: linear-gradient(90deg, #ff99ff, transparent);
   cursor: pointer;
 }
 /* even event */
@@ -377,7 +391,7 @@ input[type="text"] {
   background: transparent;
 }
 .events .event:hover {
-  background: linear-gradient(90deg, var(--primary-clr), transparent);
+  background: linear-gradient(90deg, #ff66ff, transparent);
 }
 .events .event .title {
   display: flex;
@@ -424,8 +438,8 @@ input[type="text"] {
 .events .event:hover::after {
   display: flex;
 }
-
 .events .no-event {
+  /*No Events*/
   width: 100%;
   height: 100%;
   display: flex;
@@ -433,52 +447,31 @@ input[type="text"] {
   justify-content: center;
   font-size: 1.5rem;
   font-weight: 500;
-  color: #ffffff;
-}
-/* ------ Para señalar el día actual ------
-.calendar .days .active{
-  position: relative;
-  font-size: 2rem;
-  color: #fff;
-  background-color: var(--primary-clr);
-}
-.calendar .days .active::before{
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 0 10px 2px var(--primary-clr);
-}
-.calendar .days .today{
-  font-size: 2rem;
-}*/
-/* ------ Botón del calendario para devolverte a la fecha actual ------
-.calendar .goto-today {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 5px;
-  margin: 50px 0 10px 80%;
   color: var(--primary-clr);
 }
-.calendar .goto-today button {
-  padding: 5px 10px;
+/* ------ Botón en el calendario para agendar la cita ------*/
+.agendar {
+  display: flex;
+  margin-left: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+.agendar-btn button {
+  padding: 10px;
   border: 1px solid var(--primary-clr);
   border-radius: 5px;
-  background-color: transparent;
+  background-color: #e6e6fa;
   cursor: pointer;
   color: var(--primary-clr);
+  font-size: 18px;
+  margin-top: 18px;
 }
-.calendar .goto-today button:hover {
+.agendar-btn button:hover {
   color: #fff;
-  background-color: var(--primary-clr);
-}*/
+  background-color: #ff99ff;
+  border: 1px solid #ff99ff;
+}
 /*--------------------------- Info contacto ---------------------------*/
-
 .back-info {
   padding: 10px 0;
   background-color: white;
@@ -487,4 +480,43 @@ input[type="text"] {
   text-align: center;
   font-size: 22px;
   color: var(--primary-clr);
+}
+
+.background-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.popupError1,
+.popupError2,
+.popupNotif {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  text-align: center;
+}
+
+/*#notif {
+  font-size: 24px;
+  margin-right: 30px;
+  cursor: pointer;
+}*/
+
+#cerrarNotif,
+#cerrarError2,
+#cerrarError1 {
+  cursor: pointer;
 }

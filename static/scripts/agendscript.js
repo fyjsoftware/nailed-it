@@ -17,6 +17,9 @@ const calendar = document.querySelector(".calendar"),
   addEventTo = document.querySelector(".event-time-to "),
   addEventSubmit = document.querySelector(".add-event-btn ")*/
 
+var itemForm;
+var checkBoxes;
+
 let today = new Date();
 let activeDay;
 let month = today.getMonth();
@@ -38,10 +41,28 @@ const months = [
 ];
 
 let eventsArr = [];
+let serv;
 let eventsCal;
 let actualEmp;
-//getEvents();
-console.log(eventsArr);
+
+document.addEventListener("DOMContentLoaded", function () {
+  var cards = document.querySelectorAll(".card");
+  cards.forEach(function (card) {
+    card.addEventListener("click", function () {
+      focus(card);
+    });
+  });
+});
+
+function focus(card) {
+  card.classList.add("focus");
+  var otherCards = document.querySelectorAll(".card");
+  otherCards.forEach(function (otherCard) {
+    if (otherCard !== card) {
+      otherCard.classList.remove("focus");
+    }
+  });
+}
 
 //function to add days in days with class day and prev-date next-date on previous month and next month
 //days and active on today
@@ -227,7 +248,7 @@ function updateEvents(date) {
       event.events.forEach((event) => {
         events += `<div class="event">
             <div class="title">
-              <i class="fas fa-circle"></i>
+              <i class="fa fa-circle"></i>
               <h3 class="event-title">${event.title}</h3>
             </div>
             <div class="event-time">
@@ -239,11 +260,10 @@ function updateEvents(date) {
   });
   if (events === "") {
     events = `<div class="no-event">
-            <h3>Sin Citas</h3>
+            <h3>Sin citas</h3>
         </div>`;
   }
   eventsContainer.innerHTML = events;
-  //saveEvents();
 }
 /*
 document.addEventListener("click", (e) => {
@@ -370,7 +390,13 @@ addEventTo.addEventListener("input", (e) => {
 //function to delete event when clicked on event
 eventsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("event")) {
-    if (confirm("Are you sure you want to delete this event?")) {
+      document.getElementById("backgroundOverlay").style.display = "block";
+      popupCitas.style.display = "block";
+      cerrarCitas.addEventListener("click", function() {
+          document.getElementById("backgroundOverlay").style.display = "none";
+          popupCitas.style.display = "none";
+      });
+    /*if (confirm("Are you sure you want to delete this event?") && !window.location.href.includes("agendar")) {
       const eventTitle = e.target.children[0].children[1].innerHTML;
       eventsArr.forEach((event) => {
         if (
@@ -395,39 +421,89 @@ eventsContainer.addEventListener("click", (e) => {
         }
       });
       updateEvents(activeDay);
-    }
+    }*/
   }
 });
-/*
-//function to save events in local storage
-function saveEvents() {
-  localStorage.setItem("events", JSON.stringify(eventsArr));
+
+function setEmpServ(emp) {
+  itemForm = document.getElementById("form" + emp);
+  checkBoxes = itemForm.querySelectorAll('input[type="checkbox"]');
 }
 
-//function to get events from local storage
-function getEvents() {
-  //check if events are already saved in local storage then return event else nothing
-  if (localStorage.getItem("events") === null) {
-    return;
+function setCleanServ(sCheckbox) {
+  if (window.location.href.includes("agendar")) {
+    for (let i = 1; i < 6; i++) {
+      setEmpServ(i);
+      if (i !== sCheckbox) {
+        checkBoxes.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+      }
+    }
   }
-  eventsArr.push(...JSON.parse(localStorage.getItem("events")));
-}*/
+}
+
+function cleanEvents() {
+  while (eventsArr.length > 0) {
+    eventsArr.pop();
+  }
+}
+
+function getServ() {
+  setEmpServ(actualEmp);
+  serv = [];
+  try {
+    checkBoxes.forEach((item) => {
+      if (item.checked) {
+        serv.push(item.value);
+      }
+    });
+  } catch (TypeError) {}
+}
 
 function setEventsCal(events) {
-  for (let i = 0; i < events.length; i++) {
-    const newEvent = {
-      //title: events[i].servicio, Para el cal del Emp
-      title: "Ocupado",
-      time: convertTime(events[i].horaI) + " - " + convertTime(events[i].horaF),
-    };
-    eventsArr.push({
-      day: new Date(events[i].fecha).getDate() + 1,
-      month: new Date(events[i].fecha).getMonth() + 1,
-      year: new Date(events[i].fecha).getFullYear(),
-      events: [newEvent],
-    });
+  if (events != null) {
+    for (let i = 0; i < events.length; i++) {
+      const newEvent = {
+        title: window.location.href.includes("agendar") ? "Ocupado" : events[i].servicio + "<div class=\"idCita\" style=\"display: none;\">" + events[i].id + "</div><div class=\"telefonoCliente\" style=\"display: none;\">" + events[i].telefono + "</div>",
+        time:
+          convertTime(events[i].horaI) + " - " + convertTime(events[i].horaF),
+      };
+      eventsArr.push({
+        day: new Date(events[i].fecha).getDate() + 1,
+        month: new Date(events[i].fecha).getMonth() + 1,
+        year: new Date(events[i].fecha).getFullYear(),
+        events: [newEvent],
+      });
+    }
   }
   initCalendar();
+}
+
+function validarDatos(datos) {
+  if (!(new Date() > datos.fecha)) {
+    if (datos.serv.length > 0) {
+      if (datos.tel.length === 10) {
+        if (validarTiempo(datos.hora) === true) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+function validarTiempo(tiempo) {
+  let arr = tiempo.split(":");
+  let hor = arr[0];
+  let min = arr[1];
+  if (hor < 0 || hor > 23) {
+    return false;
+  } else if (min < 0 || min > 59) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 function convertTime(time) {
@@ -441,36 +517,24 @@ function convertTime(time) {
   return time;
 }
 
-function test() {
-  const req = new XMLHttpRequest();
-  let fecha1 = {
-    year: year,
-    month: month,
-    day: activeDay,
-  };
-  req.onreadystatechange = function () {
-    if (req.readyState == XMLHttpRequest.DONE) {
-      console.log(req.responseText);
-    }
-  };
-  req.open("POST", "login", true);
-  req.setRequestHeader("Content-type", "application/json");
-  req.send(JSON.stringify(fecha1));
-}
-
 function sendCalData(emp) {
   actualEmp = emp;
   const req = new XMLHttpRequest();
   let calData = {
-    emp: emp, // Cambiar
-    //serv: null,
+    emp: emp,
     st: false,
+    agendar: window.location.href.includes("agendar")
   };
   req.onreadystatechange = function () {
     if (req.readyState == XMLHttpRequest.DONE) {
-      eventsCal = JSON.parse(req.responseText);
-      eventsArr = [];
-      setEventsCal(eventsCal);
+      setCleanServ(actualEmp);
+      cleanEvents();
+      try {
+        eventsCal = JSON.parse(req.responseText);
+        setEventsCal(eventsCal);
+      } catch (SyntaxError) {
+        initCalendar();
+      }
     }
   };
   req.open("POST", "agendar", true);
@@ -479,6 +543,7 @@ function sendCalData(emp) {
 }
 
 function sendCita() {
+  getServ();
   const req = new XMLHttpRequest();
   let acMonth = today.getMonth() + 1;
   let f = `${year}-${acMonth}-${activeDay}`;
@@ -490,10 +555,60 @@ function sendCita() {
     am: document.getElementById("am").value,
     tel: document.getElementById("tel").value,
     emp: actualEmp,
-    serv: ["1", "3", "5"], //Agregar
+    serv: serv,
     st: true,
   };
-  req.open("POST", "agendar", true);
-  req.setRequestHeader("Content-type", "application/json");
-  req.send(JSON.stringify(cita));
+  let st = validarDatos(cita);
+  if (st === true) {
+    req.onreadystatechange = function () {
+      if (req.readyState == XMLHttpRequest.DONE) {
+        if (req.responseText === "true") {
+          console.log(req.responseText);
+          setNotif();
+        } else {
+          console.log(req.responseText);
+          setError2();
+        }
+      }
+    };
+    req.open("POST", "agendar", true);
+    req.setRequestHeader("Content-type", "application/json");
+    req.send(JSON.stringify(cita));
+  } else {
+    setError1();
+  }
+}
+
+function setError1() {
+  const popupError1 = document.getElementById("popupError1");
+  const cerrarError1 = document.getElementById("cerrarError1");
+  document.getElementById("backgroundOverlay").style.display = "block";
+  popupError1.style.display = "block";
+  cerrarError1.addEventListener("click", function () {
+    document.getElementById("backgroundOverlay").style.display = "none";
+    popupError1.style.display = "none";
+  });
+}
+
+function setError2() {
+  const popupError2 = document.getElementById("popupError2");
+  const cerrarError2 = document.getElementById("cerrarError2");
+  document.getElementById("backgroundOverlay").style.display = "block";
+  popupError2.style.display = "block";
+  cerrarError2.addEventListener("click", function () {
+    document.getElementById("backgroundOverlay").style.display = "none";
+    popupError2.style.display = "none";
+  });
+}
+
+function setNotif() {
+  const popupNotif = document.getElementById("popupNotif");
+  const cerrarNotif = document.getElementById("cerrarNotif");
+  document.getElementById("backgroundOverlay").style.display = "block";
+  popupNotif.style.display = "block";
+  cerrarNotif.addEventListener("click", function () {
+    document.getElementById("backgroundOverlay").style.display = "none";
+    popupNotif.style.display = "none";
+    window.location = "/";
+  });
 }

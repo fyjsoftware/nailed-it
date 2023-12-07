@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  list-style: none;
   font-family: "Poppins", sans-serif;
 }
 
@@ -11,6 +12,38 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(90deg, #ea5dea 25%, #eb67b8 73%);
+}
+
+.menu {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu .navbar ul li {
+  position: relative;
+  float: left;
+}
+
+.menu .navbar ul li a {
+  font-size: 20px;
+  padding: 20px;
+  color: black;
+  display: block;
+}
+
+.menu .navbar ul li a:hover {
+  color: rgb(221, 55, 152);
+}
+
+.logo {
+  margin-left: 20px;
+  width: 100px;
 }
 
 .contorno {

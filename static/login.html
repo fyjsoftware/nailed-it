@@ -3,10 +3,42 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="styles/logstyle.css" />
     <title>Love For Nails</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/x-icon" href="sources/favicon.ico">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <link rel="icon" type="image/x-icon" href="sources/favicon.ico" />
   </head>
   <body>
+    <header>
+      <div class="back">
+        <div class="menu">
+          <img
+            src="./sources/logo1.jpg"
+            class="logo"
+            alt="logo Love for Nails"
+          />
+          <!-- PARTE RESPONSIVA-->
+          <nav class="navbar">
+            <ul>
+              <li>
+                <a onclick="window.location = 'http://127.0.0.1/'">Inicio</a>
+              </li>
+              <li>
+                <a onclick="window.location = 'http://127.0.0.1/agendar'"
+                  >Agendar</a
+                >
+              </li>
+              <li>
+                <a onclick="window.location = 'http://127.0.0.1/login'"
+                  >Log in</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
     <div class="contorno">
       <img src="sources/logo.jpg" class="logo" alt="logo Love for Nails" />
       <div class="log">
@@ -14,20 +46,32 @@
       </div>
       <form action="login" method="post">
         <div class="input1">
-          <input class="mail" type="email" placeholder="Email" name="email" required />
-          <i class="fa fa-user" style='color:#F861AA' ></i>
+          <input
+            class="mail"
+            type="email"
+            placeholder="Email"
+            name="email"
+            required
+          />
+          <i class="fa fa-user" style="color: #f861aa"></i>
         </div>
         <div class="input2">
-          <input class="pass" type="password" name="password" placeholder="Contraseña" required />
+          <input
+            class="pass"
+            type="password"
+            placeholder="Contraseña"
+            name="password"
+            required
+          />
           <div class="icono">
-            <i class="fa fa-lock" style="color:#F861AA; margin-left:100%" ></i>
+            <i class="fa fa-lock" style="color: #f861aa; margin-left: 100%"></i>
           </div>
         </div>
-      <div class="boton">
-        <button>Iniciar Sesión</button>
-      </div>
-    </form>
-    </div>
+        <div class="boton">
+          <button>Iniciar Sesión</button>
+        </div>
+      </form>
     </div>
   </body>
+  <script src="/scripts/log.js"></script>
 </html>

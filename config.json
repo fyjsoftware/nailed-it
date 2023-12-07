@@ -10,5 +10,17 @@
         "usuario": "root",
         "password": "Pr0y3ct0_FYJSW!",
         "baseDatos": "salon"
+    },
+    "email": {
+        "service": "gmail",
+        "auth": {
+            "user": "lovefornailsmxl@gmail.com",
+            "pass": "onzv rcvm omdn ctaa"
+        }
+    },
+    "sms": {
+        "sid": "AC681f7dda0af4bb29089fbdc2998305c2",
+        "token": "d133fb2a57754c56161ad482304030bf",
+        "telefono": "+18584139564"
     }
 }

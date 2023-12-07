@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale-1.0" />
+    <link rel="stylesheet" href="styles/agendstyle.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Agenda tu cita</title>
+    <link rel="icon" type="image/x-icon" href="sources/favicon.ico">
+  </head>
+  <body>
+    <div id="backgroundOverlay" class="background-overlay"></div>
+    <header>
+      <div class="back">
+        <div class="menu">
+          <img
+            src="sources/logo1.jpg"
+            class="logo"
+            alt="logo Love for Nails"
+          />
+          <!-- PARTE RESPONSIVA-->
+          <nav class="navbar">
+            <ul>
+              <li>
+                <a href="/"><i class="fa fa-home"></i> Inicio</a>
+              </li>
+              <li>
+                <a href="/agendar"><i class="fa fa-calendar"></i> Agendar</a>
+              </li>
+              <li>
+                <a href="/login"><i class="fa fa-key"></i> Log in</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <!----------------------------- My code ----------------------------->
+    <!----------------------------- Mensaje / Cards ----------------------------->
+    <div class="mensaje">
+      <br />A continuación, ingresa los datos para poder agendar tu cita
+    </div>
+    <div class="emp"><br /><br />Empleadas</div>
+    <div class="all-cards">
+      <% for (var i = 0; i < empleados.length; i++) { %>
+      <div onclick="sendCalData(<%- empleados[i].id %>)" class="card">
+        <div class="head">
+          <div class="img">
+            <img src="sources/avatar.jpg" />
+          </div>
+        </div>
+        <div class="description">
+          <h2><%- empleados[i].nombre %></h2>
+          <h3>Servicios</h3>
+          <h4>
+            <form id="form<%- i + 1 %>">
+              <% for (var j = 0; j < empleados[i].servicios.length; j++) { %>
+                <input type="checkbox" name="serv" value="<%- empleados[i].servicios[j].id %>" /> <%- empleados[i].servicios[j].nombre %><br />
+              <% }; %>
+            </form>
+          </h4>
+        </div>
+        <div class="contact">
+          <h4>Contacto <br /><%- empleados[i].telefono %></h4>
+        </div>
+      </div>
+      <% }; %>
+    </div>
+    <div class="datos">
+      <br /><br /><br />Ingrese su nombre completo y número telefónico:
+    </div>
+    <div class="all-textbox">
+      <input type="text" id="name" placeholder="Nombre" />
+      <input type="text" id="ap" placeholder="Apellido paterno" />
+      <input type="text" id="am" placeholder="Apellido materno" />
+      <input type="text" id="tel" placeholder="Teléfono" />
+    </div>
+    <!----------------------------- Calendario ----------------------------->
+    <div class="agendar-msg">
+      <br /><br /><br />¿Qué día y hora te gustaría agendar?
+    </div>
+
+    <div class="container">
+      <div class="left">
+        <div class="calendar">
+          <div class="month">
+            <i class="fa fa-angle-left prev"></i>
+            <div class="date"></div>
+            <i class="fa fa-angle-right next"></i>
+          </div>
+          <div class="weekdays">
+            <div>Dom</div>
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mie</div>
+            <div>Jue</div>
+            <div>Vie</div>
+            <div>Sab</div>
+          </div>
+          <div class="days"></div>
+        </div>
+        <div class="agendar">
+          <input type="text" id="hour" placeholder="Hora" />
+          <div class="agendar-btn">
+            <button onclick="sendCita()" class="msg">Agendar cita</button>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="today-date">
+          <div class="event-day"></div>
+          <div class="event-date"></div>
+        </div>
+        <div class="events"></div>
+      </div>
+    </div>
+    <div class="back-info">
+      <div class="info">
+        Dirección: Av. Jdn. Sur, Jardines del Valle, 21280 Mexicali, B.C.
+        <br />Teléfono: (686) 222 7513
+      </div>
+    </div>
+    <div id="popupError1" class="popupError1">
+      <p>Datos ingresados incorrectamente. Por favor ingréselos nuevamente.</p>
+      <button id="cerrarError1">Cerrar</button>
+    </div>
+    <div id="popupError2" class="popupError2">
+      <p>
+        Hay una cita en el horario seleccionado. Por favor, cambie el horario o
+        la fecha para poder continuar.
+      </p>
+      <button id="cerrarError2">Cerrar</button>
+    </div>
+    <div id="popupNotif" class="popupNotif">
+      <p>Cita agregada correctamente.</p>
+      <button id="cerrarNotif">Cerrar</button>
+    </div>
+  </body>
+  <script src="scripts/agendscript.js"></script>
+</html>

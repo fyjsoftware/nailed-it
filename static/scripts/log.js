@@ -2,20 +2,6 @@ const icono = document.getElementsByClassName("icono")[0];
 const pass = document.getElementsByClassName("pass")[0];
 let st = false;
 
-function login() {
-  var m = document.getElementsByClassName("mail")[0].value;
-  var p = document.getElementsByClassName("pass")[0].value;
-  const req = new XMLHttpRequest();
-  let data = {
-    email: m,
-    pass: p,
-  };
-  console.log(data); //Test Prueba Datos
-  req.open("POST", "login", true);
-  req.setRequestHeader("Content-type", "application/json");
-  req.send(JSON.stringify(data));
-}
-
 icono.addEventListener("click", () => {
   let i = "";
   let type = "";
@@ -30,5 +16,4 @@ icono.addEventListener("click", () => {
   }
   icono.innerHTML = i;
   pass.setAttribute("type", type);
-  console.log(1);
 });
