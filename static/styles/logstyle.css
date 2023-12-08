@@ -1,0 +1,154 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #ea5dea 25%, #eb67b8 73%);
+}
+
+.menu {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu .navbar ul li {
+  position: relative;
+  float: left;
+}
+
+.menu .navbar ul li a {
+  font-size: 20px;
+  padding: 20px;
+  color: black;
+  display: block;
+}
+
+.menu .navbar ul li a:hover {
+  color: rgb(221, 55, 152);
+}
+
+.logo {
+  margin-left: 20px;
+  width: 100px;
+}
+
+.contorno {
+  width: 27%;
+  height: 70%;
+  background: #ffffff;
+  padding: 2% 0;
+  border-radius: 9%;
+}
+
+.contorno .logo {
+  margin-left: 25%;
+  width: 50%;
+  padding: 25px;
+}
+
+.contorno .log {
+  display: flex;
+  align-items: center;
+  padding: 7%;
+  justify-content: center;
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+
+.input1 {
+  margin-left: 25%;
+  margin-right: 25%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10%;
+}
+
+.input1 i {
+  margin-left: 5%;
+}
+
+.mail {
+  float: left;
+}
+
+.input1 input {
+  position: relative;
+  border-bottom: 2px solid #8a8585;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: none;
+  outline: none;
+  font-size: 100%;
+}
+
+.input2 {
+  margin-left: 25%;
+  margin-right: 25%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10%;
+}
+
+.icono i {
+  margin-left: 5%;
+}
+
+.pass {
+  float: left;
+}
+
+.input2 input {
+  position: relative;
+  border-bottom: 2px solid #8a8585;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: none;
+  outline: none;
+  font-size: 100%;
+}
+
+.contorno .boton {
+  width: 33%;
+  margin: auto;
+}
+
+.boton button {
+  width: 100%;
+  height: 10%;
+  border-radius: 28px;
+  border: none;
+  background: #f565d1;
+  color: white;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.boton button:hover {
+  background: #f565d1;
+  color: #808080;
+  transition: 0.3s;
+}
+
+.boton button:active {
+  background: #d1d1d1;
+  color: #ec8ec8;
+  transition: 0.01s;
+}

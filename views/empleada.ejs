@@ -1,0 +1,219 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles/vestyle.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Assistant:wght@500&family=Fasthand&family=Pacifico&family=Poppins&family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <title>Love For Nails</title>
+    <link rel="icon" type="image/x-icon" href="sources/favicon.ico">
+    <script src="scripts/vescript.js"></script>
+  </head>
+
+  <body>
+    <div id="backgroundOverlay" class="background-overlay"></div>
+    <header>
+      <div>
+        
+        <div class="menu">
+          <img src="sources/logo1.jpg" class="logo" alt="logo Love for Nails" />
+          <!-- PARTE RESPONSIVA-->
+
+          <nav class="navbar">
+            <ul>
+              <li>
+                <a><i class="fa fa-user"></i> ¡Bienvenida, <%- usuario %>! <i class="fa fa-caret-down"></i></a>
+                <ul class="submenu">
+                  <li><a id="ajusteTrabajo" href="#"><i class="fa fa-briefcase"></i> Ajuste de trabajo</a></li>
+                  <li><a id="logout" href="#"><i class="fa fa-key"></i> Cerrar sesión</a></li>
+                </ul>
+              </li>
+              
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div class="cuerpo">
+      <div class="card">
+        <div class="head">
+          <div class="img">
+            <img
+              src="sources/avatar.jpg"/>
+          </div>
+        </div>
+        <div class="description">
+          <h2><%- nombre %></h2>
+          <h3>Servicios</h3>
+          <% for (var i = 0; i < servicios.length; i++) { %>
+          <h4>• <%- servicios[i] %></h4>
+          <% }; %>
+        </div>
+        <div class="contact">
+          <h4>Contacto <br /><%- telefono %></h4>
+        </div>
+        <img src="sources/logoTrans.png" width="100px"/>
+      </div>
+      <div class="container">
+        <div class="left">
+          <div class="calendar">
+            <div class="month">
+              <i class="fa fa-angle-left prev"></i>
+              <div class="date"></div>
+              <i class="fa fa-angle-right next"></i>
+            </div>
+            <div class="weekdays">
+              <div>Dom</div>
+              <div>Lun</div>
+              <div>Mar</div>
+              <div>Mie</div>
+              <div>Jue</div>
+              <div>Vie</div>
+              <div>Sab</div>
+            </div>
+            <div class="days"></div>
+            <!--<div class="goto-today">
+                    <button class="today-btn">Día de hoy</button>
+                  </div>-->
+          </div>
+        </div>
+        <div class="right">
+          <div class="today-date">
+            <div class="event-day"></div>
+            <div class="event-date"></div>
+          </div>
+          <div class="events"></div>
+        </div>
+      </div>
+    </div>
+    <div id="popupTrabajo" class="popupTrabajo">
+      <h2>Ajuste de trabajo</h2>
+      <form name="formTrabajo" id="formTrabajo">
+        <table>
+          <tbody>
+            <tr>
+              <td><h4>NOMBRE</h4></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Nombre:</td>
+              <td><input type="text" id="nombre" name="nombre"></td>
+            </tr>
+            <tr>
+              <td>Apellido paterno:</td>
+              <td><input type="text" id="paterno" name="paterno"></td>
+            </tr>
+            <tr>
+              <td>Apellido materno:</td>
+              <td><input type="text" id="materno" name="materno"></td>
+            </tr>
+            <tr>
+              <td><h4>DATOS DE CONTACTO</h4></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Teléfono:</td>
+              <td><input type="tel" id="telefono" name="telefono" maxlength="10"></td>
+            </tr>
+            <tr>
+              <td><h4>CUENTA</h4></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Correo:</td>
+              <td><input type="email" id="correo" name="correo"></td>
+            </tr>
+            <tr>
+              <td>Contraseña:</td>
+              <td><input type="password" id="contrasena" name="contrasena"></td>
+            </tr>
+            <tr>
+              <td><h4>ESPACIO DE TRABAJO</h4></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Servicios a ofrecer:</td>
+              <td>
+                <% for (var i = 0; i < listaServicios.length; i++) { %>
+                  <input type="checkbox" id="serv<%- i %>" name="serv<%- i %>"> <%- listaServicios[i].tipoServicio; %>
+                  <% if (i != listaServicios.length - 1) { %>
+                    <br>
+                  <% } %>
+                <% }; %>
+              </td>
+            </tr>
+            <tr>
+              <td><h4>HORARIO</h4></td>
+              <td>
+                <tr>
+                  <td><input type="time" id="horarioEntrada" name="horarioEntrada"></td>
+                  <td><input type="time" id="horarioSalida" name="horarioSalida"></td>
+                </tr>
+                <tr>
+                  <td>Día de descanso</h4></td>
+                  <td>
+                    <select name="descanso" id="descanso">
+                      <option value="1">Lunes</option>
+                      <option value="2">Martes</option>
+                      <option value="3">Miércoles</option>
+                      <option value="4">Jueves</option>
+                      <option value="5">Viernes</option>
+                      <option value="6">Sábado</option>
+                      <option value="7">Domingo</option>
+                    </select>
+                </td>
+                </tr>
+              </td>
+            </tr>
+            <tr>
+              <td>Consideraciones:</td>
+              <td><input type="checkbox" id="inhabilitada" name="inhabilitada"> Deshabilitada por vacaciones / incapacidad</td><br>
+            </tr>
+          </tbody>
+          </table>          
+      </form>
+      <br>
+      <button id="guardarTrabajo">💾 Guardar</button> 
+      <button id="cerrarTrabajo">⛔ Cerrar</button>
+    </div>
+    <div id="popupCitas" class="popupCitas">
+      <h2>¿Qué quieres hacer con esta cita?</h2>
+      <div class="botonesCitas">
+        <br>
+        <button id="confirmarAsistencia">✅ Confirmar asistencia</button><br><br>
+        <button id="registrarAsistencia">📝 Registrar asistencia</button><br><br>
+        <button id="enviarRecordatorio">🔔 Enviar recordatorio</button><br><br>
+        <button id="reagendarCita">⏰ Reagendar cita</button><br><br>
+        <button id="cancelarCita">❌ Cancelar cita</button><br><br>
+        <button id="cerrarCitas">⛔ Cerrar</button>
+      </div>
+    </div>
+    <div id="popupReagendar" class="popupReagendar">
+      <table>
+        <tbody>
+          <tr>
+            <td><h4>REAGENDAR: </h4></td>
+            <td>Por favor, ingrese la nueva fecha y hora para reagendar la cita.</td>
+          </tr>
+          <tr>
+            <td>Fecha:</td>
+            <td><input type="date" id="nuevaFecha" name="nuevaFecha"></td>
+          </tr>
+          <tr>
+            <td>Hora:</td>
+            <td><input type="time" id="nuevaHora" name="nuevaHora"></td>
+          </tr>
+        </tbody>
+      </table>
+      <button id="regresarCitas">🔙 Regresar</button>
+      <button id="reagendarBoton">⏰ Reagendar</button>
+      <button id="cerrarReagendar">⛔ Cerrar</button>
+    </div>
+    <script src="scripts/agendscript.js"></script>
+    <script>
+      sendCalData(<%- id %>);
+    </script>
+  </body>
+</html>

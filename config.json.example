@@ -1,0 +1,27 @@
+{
+    "testing": false,
+    "host": "",
+    "hostSecundario": "",
+    "puertos": {
+        "http": 80,
+        "db": 3306
+    },
+    "db": {
+        "usuario": "",
+        "password": "",
+        "baseDatos": ""
+    },
+    "email": {
+        "host": "smtp.gmail.com",
+        "port": 587,
+        "auth": {
+            "user": "",
+            "pass": ""
+        }
+    },
+    "sms": {
+        "sid": "",
+        "token": "",
+        "telefono": ""
+    }
+}
