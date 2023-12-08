@@ -18,14 +18,14 @@
 		"winston-daily-rotate-file": "^4.7.1"
 	},
 	"type": "module",
-	"name": "proyectoiconos",
-	"version": "0.2.0",
+	"name": "lovefornails",
+	"version": "0.0.1",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo Configuración de prueba"
 	},
 	"author": {
-		"name": "Proyecto ICONOS"
+		"name": "FYJ Software"
 	},
 	"contributors": [
 		{
@@ -42,5 +42,5 @@
 		}
 	],
 	"license": "APACHE-2.0",
-	"description": "Proyecto para la materia Ingenieria de Software."
+	"description": "Proyecto para la materia de Fundamentos de Ingenieria de Software y Taller de Bases de Datos."
 }

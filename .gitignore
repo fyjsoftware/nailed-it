@@ -138,5 +138,3 @@ config.json
 # PROYECTO: No subir archivos shell para ejecutar el programa
 *.sh
 *.bat
-
-# PROYECTO: No subir avatares
